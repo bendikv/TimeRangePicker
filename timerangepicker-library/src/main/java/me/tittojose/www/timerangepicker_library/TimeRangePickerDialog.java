@@ -1,7 +1,6 @@
 package me.tittojose.www.timerangepicker_library;
 
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -53,21 +52,30 @@ public class TimeRangePickerDialog extends DialogFragment implements View.OnClic
         startTimePicker = (TimePicker) root.findViewById(R.id.startTimePicker);
         endTimePicker = (TimePicker) root.findViewById(R.id.endTimePicker);
         setTimeRange.setOnClickListener(this);
+        startTimePicker.setIs24HourView(is24HourMode);
+        endTimePicker.setIs24HourView(is24HourMode);
         tabs.findViewById(R.id.tabHost);
         tabs.setup();
         TabHost.TabSpec tabpage1 = tabs.newTabSpec("one");
         tabpage1.setContent(R.id.startTimeGroup);
-        tabpage1.setIndicator("Start Time");
+        tabpage1.setIndicator(getString(R.string.start_time));
 
         TabHost.TabSpec tabpage2 = tabs.newTabSpec("two");
         tabpage2.setContent(R.id.endTimeGroup);
-        tabpage2.setIndicator("End Time");
+        tabpage2.setIndicator(getString(R.string.end_time));
 
         tabs.addTab(tabpage1);
         tabs.addTab(tabpage2);
 
 
         return root;
+    }
+
+    public void initializeTimeRange(int startTimeHour, int startTimeMinute, int endTimeHour, int endTimeMinute) {
+        startTimePicker.setCurrentHour(startTimeHour);
+        startTimePicker.setCurrentMinute(startTimeMinute);
+        endTimePicker.setCurrentHour(endTimeHour);
+        endTimePicker.setCurrentMinute(endTimeMinute);
     }
 
     @Override
