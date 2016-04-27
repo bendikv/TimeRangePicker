@@ -22,6 +22,12 @@ public class TimeRangePickerDialog extends DialogFragment implements View.OnClic
     OnTimeRangeSelectedListener onTimeRangeSelectedListener;
     boolean is24HourMode;
 
+    // Initial values
+    int startTimeHour;
+    int startTimeMinute;
+    int endTimeHour;
+    int endTimeMinute;
+
     public static TimeRangePickerDialog newInstance(OnTimeRangeSelectedListener callback, boolean is24HourMode) {
         TimeRangePickerDialog ret = new TimeRangePickerDialog();
         ret.initialize(callback, is24HourMode);
@@ -67,11 +73,19 @@ public class TimeRangePickerDialog extends DialogFragment implements View.OnClic
         tabs.addTab(tabpage1);
         tabs.addTab(tabpage2);
 
+        updateTimeRange(startTimeHour, startTimeMinute, endTimeHour, endTimeMinute);
 
         return root;
     }
 
     public void initializeTimeRange(int startTimeHour, int startTimeMinute, int endTimeHour, int endTimeMinute) {
+        this.startTimeHour = startTimeHour;
+        this.startTimeMinute = startTimeMinute;
+        this.endTimeHour = endTimeHour;
+        this.endTimeMinute = endTimeMinute;
+    }
+
+    public void updateTimeRange(int startTimeHour, int startTimeMinute, int endTimeHour, int endTimeMinute) {
         startTimePicker.setCurrentHour(startTimeHour);
         startTimePicker.setCurrentMinute(startTimeMinute);
         endTimePicker.setCurrentHour(endTimeHour);
